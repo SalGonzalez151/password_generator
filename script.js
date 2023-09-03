@@ -1,7 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var passwordlist = [];
-var promptChoice = true;
+var passwordList = [];
 
 // Array of special characters to be included in password
 var specialCharacters = [
@@ -33,10 +32,9 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  passwordlist = [];
   var passwordLength = prompt(" Please enter lenght of password between 8 and 126 characters")
-  if (passwordLength < 8 || passwordLength > 126 || isNaN(passwordLength)) {
-    alert("Please enter a number between 8 and 126 characters");
+  if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
+    alert("Please enter a number between 8 and 128 characters");
     return false;
   }
 
@@ -54,17 +52,23 @@ function generatePassword() {
   }
 
   var charactersAdded = [];
+
   if (useLowercase === true) {
-    charactersAdded = charactersAdded.concat(useLowercase);
+    charactersAdded = charactersAdded.concat(lowerCasedCharacters);
   }
   if (useUppercase === true) {
-    charactersAdded = charactersAdded.concat(useUppercase);
+    charactersAdded = charactersAdded.concat(upperCasedCharacters);
   }
   if (useSpecialCharacters === true) {
-    charactersAdded = charactersAdded.concat(useSpecialCharacters);
+    charactersAdded = charactersAdded.concat(specialCharacters);
   }
   if (useNumericCharacters === true) {
-    charactersAdded = charactersAdded.concat(useNumericCharacters);
+    charactersAdded = charactersAdded.concat(numericCharacters);
   }
 
+  for (var i = 0; i < passwordLength; i++) {
+    var randomIndex = (Math.floor(Math.random() * charactersAdded.length));
+    passwordList += charactersAdded[randomIndex];
+  }
+  return passwordList;
 }
